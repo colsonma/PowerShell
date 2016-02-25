@@ -142,7 +142,7 @@ Write-Verbose "Creating the volumes complete"
 $volumes = $volnumbers | %{Get-SFVolume -Name ("$accountname-$_")}
 
 # Get Volumes
-
+{
 Write-Verbose "Adding volumes to existing volume access group $($Cluster)"
     $volumes | Add-SFVolumeToVolumeAccessGroup -VolumeAccessGroupID (Get-SFVolumeAccessGroup $Cluster).VolumeAccessGroupID
 Write-Verbose "Adding volumes to existing volume access group $($Cluster) complete"
@@ -181,7 +181,8 @@ New-Datastore -VMhost $vmhost -Name $volume.VolumeName -Path $canonicalname -Vmf
 
 # Rescan HBAs
 Write-Verbose "Rescanning the HBAs to connect all datastores"
-
+{
 $vmhosts | Get-VMhostStorage -RescanAllHba -RescanVMFs
 Write-Verbose "Rescan Complete"
+}
 }
